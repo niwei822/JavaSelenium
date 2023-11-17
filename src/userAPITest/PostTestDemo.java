@@ -21,7 +21,7 @@ public class PostTestDemo {
 		try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
 			// Define the URL of the POST request
-			String postUrl = "https://reqres.in/api/users/2";
+			String postUrl = "https://reqres.in/api/users";
 
 			// Create an HttpPost object
 			HttpPost httpPost = new HttpPost(postUrl);
