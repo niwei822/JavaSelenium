@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-11-16T21:15:30 PST" name="Default suite" finished-at="2023-11-16T21:15:32 PST" duration-ms="1969">
+  <suite started-at="2023-12-13T10:36:57 PST" name="Suite" finished-at="2023-12-13T10:37:10 PST" duration-ms="13000">
     <groups>
     </groups>
-    <test started-at="2023-11-16T21:15:30 PST" name="Default test" finished-at="2023-11-16T21:15:32 PST" duration-ms="1969">
-      <class name="userAPITest.UserAPIGetTest">
-        <test-method signature="testWithCorrectUserId()[pri:0, instance:userAPITest.UserAPIGetTest@449a4f23]" started-at="2023-11-16T21:15:31 PST" name="testWithCorrectUserId" finished-at="2023-11-16T21:15:32 PST" duration-ms="1892" status="PASS">
+    <test started-at="2023-12-13T10:36:57 PST" name="Test" finished-at="2023-12-13T10:37:10 PST" duration-ms="13000">
+      <class name="TestNgDemo.Introduction">
+        <test-method signature="test1()[pri:0, instance:TestNgDemo.Introduction@3646a422]" started-at="2023-12-13T10:36:57 PST" name="test1" finished-at="2023-12-13T10:37:10 PST" duration-ms="12941" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testWithCorrectUserId -->
-      </class> <!-- userAPITest.UserAPIGetTest -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+        </test-method> <!-- test1 -->
+      </class> <!-- TestNgDemo.Introduction -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
 </testng-results>

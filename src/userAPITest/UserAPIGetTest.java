@@ -12,19 +12,11 @@ import org.apache.http.util.EntityUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class UserAPIGetTest {
-	
-	private static final int HTTP_CODE_200 = 200;
-	private static final int HTTP_CODE_400 = 400;
-	private static final int HTTP_CODE_404 = 404;
-	
-	private static final String HTTP_STATUS_MESSAGE_OK = "OK";
-	private static final String HTTP_STATUS_MESSAGE_CLIENT_DATA_ISSUE = "CLIENT DATA ISSUE";
-	private static final String HTTP_STATUS_MESSAGE_NOT_FOUND = "NOT FOUND";
+public class UserAPIGetTest extends BaseTest implements UserAPIConstant {
 	
 @Test
 	public void testWithCorrectUserId() throws ParseException, IOException {
-	String url = "https://gorest.co.in/public/v2/users/5714920";
+	String url = base_URL + "/2";
 	HttpResponse response = sendAndReceiveGetMessage(url);
 	
 	System.out.println(response.getStatusLine().getStatusCode());
@@ -34,9 +26,22 @@ public class UserAPIGetTest {
 	System.out.println(responseMsg);
 	Assert.assertEquals(response.getStatusLine().getStatusCode(), HTTP_CODE_200);
 	Assert.assertEquals(response.getStatusLine().getReasonPhrase(), HTTP_STATUS_MESSAGE_OK);
-	Assert.assertTrue(responseMsg.contains("Paramartha Gill"));
+	Assert.assertTrue(responseMsg.contains("Janet"));
 	
 }
+
+private String getStringMessageFromResponseObject(HttpResponse response) throws IOException {
+	HttpEntity entity = response.getEntity();
+	String responseMsg = "";
+    if (entity != null) {
+        // return it as a String
+        responseMsg = EntityUtils.toString(entity);
+        //System.out.println(result);
+    }
+    return responseMsg;
+}
+
+@Test
 private HttpResponse sendAndReceiveGetMessage(String url) throws IOException {
 	HttpGet request = new HttpGet(url);
 	HttpClient client = HttpClientBuilder.create().build();
@@ -44,11 +49,53 @@ private HttpResponse sendAndReceiveGetMessage(String url) throws IOException {
 	return response;
 }
 
-private String getStringMessageFromResponseObject(HttpResponse response) throws IOException {
-    HttpEntity entity = response.getEntity();
-    return EntityUtils.toString(entity);
+@Test
+public void testWithNonExistingtUserId() throws ParseException, IOException {
+	String url = base_URL + "/200";
+	HttpResponse response = sendAndReceiveGetMessage(url);
+	
+	System.out.println(response.getStatusLine().getStatusCode());
+	System.out.println(response.getStatusLine().getReasonPhrase());
+	String responseMsg = getStringMessageFromResponseObject(response);
+	
+	System.out.println(responseMsg);
+	Assert.assertEquals(response.getStatusLine().getStatusCode(), HTTP_CODE_404);
+	Assert.assertEquals(response.getStatusLine().getReasonPhrase(), HTTP_STATUS_MESSAGE_NOT_FOUND);
+	//Assert.assertTrue(responseMsg.contains("Govinda Mahajan"));
+	
 }
 
+@Test
+public void testWithSpecialChar() throws ParseException, IOException {
+	String url = base_URL + "/&&&";
+	HttpResponse response = sendAndReceiveGetMessage(url);
+	
+	System.out.println(response.getStatusLine().getStatusCode());
+	System.out.println(response.getStatusLine().getReasonPhrase());
+	String responseMsg = getStringMessageFromResponseObject(response);
+
+	System.out.println(responseMsg);
+	Assert.assertEquals(response.getStatusLine().getStatusCode(), HTTP_CODE_404);
+	Assert.assertEquals(response.getStatusLine().getReasonPhrase(), HTTP_STATUS_MESSAGE_NOT_FOUND);
+	//Assert.assertTrue(responseMsg.contains("Govinda Mahajan"));
+	
+}
+
+@Test
+public void testWithBlankId() throws ParseException, IOException {
+	String url = base_URL + "/";
+	HttpResponse response = sendAndReceiveGetMessage(url);
+	
+	System.out.println(response.getStatusLine().getStatusCode());
+	System.out.println(response.getStatusLine().getReasonPhrase());
+	String responseMsg = getStringMessageFromResponseObject(response);
+	
+	System.out.println(responseMsg);
+	Assert.assertEquals(response.getStatusLine().getStatusCode(), HTTP_CODE_200);
+	Assert.assertEquals(response.getStatusLine().getReasonPhrase(), HTTP_STATUS_MESSAGE_OK);
+	//Assert.assertTrue(responseMsg.contains("Govinda Mahajan"));
+	
+}
 
 
 	public static void main(String[] args) {
